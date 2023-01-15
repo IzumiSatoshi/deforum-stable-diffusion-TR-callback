@@ -213,7 +213,7 @@ def anim_frame_warp_2d(prev_img_cv2, args, anim_args, keys, frame_idx):
     )
 
 def anim_frame_warp_3d(device, prev_img_cv2, depth, anim_args, keys, frame_idx):
-    translate_xyz, rot_mat = anim_args.TR_callback(deice, prev_img_cv2, depth, anim_args, keys, frame_idx)
+    translate_xyz, rot_mat = anim_args.TR_callback(device, prev_img_cv2, depth, anim_args, keys, frame_idx)
     result = transform_image_3d(device, prev_img_cv2, depth, rot_mat, translate_xyz, anim_args)
     torch.cuda.empty_cache()
     return result
