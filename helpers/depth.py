@@ -157,6 +157,8 @@ class DepthModel():
                 adabins_depth = adabins_depth.squeeze()
             except:
                 print(f"  exception encountered, falling back to pure MiDaS")
+                import traceback
+                traceback.print_exc()
                 use_adabins = False
             torch.cuda.empty_cache()
 
