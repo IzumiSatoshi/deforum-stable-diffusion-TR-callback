@@ -1,3 +1,6 @@
+**I add TR_callback to manipulate transform_xyz and rot_mat**  
+
+
 # Deforum Stable Diffusion
 
 <p align="left">
