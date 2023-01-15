@@ -202,6 +202,7 @@ def render_animation(args, anim_args, animation_prompts, root):
     settings_filename = os.path.join(args.outdir, f"{args.timestring}_settings.txt")
     with open(settings_filename, "w+", encoding="utf-8") as f:
         s = {**dict(args.__dict__), **dict(anim_args.__dict__)}
+        del s["TR_callback"]
         json.dump(s, f, ensure_ascii=False, indent=4)
         
     # resume from timestring
