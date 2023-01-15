@@ -88,6 +88,8 @@ def render_image_batch(args, prompts, root):
     if args.save_settings:
         filename = os.path.join(args.outdir, f"{args.timestring}_settings.txt")
         with open(filename, "w+", encoding="utf-8") as f:
+            save_dict = args.__dict__
+            del save_dict["TR_callback"]
             json.dump(dict(args.__dict__), f, ensure_ascii=False, indent=4)
 
     index = 0
