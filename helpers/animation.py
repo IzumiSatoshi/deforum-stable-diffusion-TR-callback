@@ -213,18 +213,7 @@ def anim_frame_warp_2d(prev_img_cv2, args, anim_args, keys, frame_idx):
     )
 
 def anim_frame_warp_3d(device, prev_img_cv2, depth, anim_args, keys, frame_idx):
-    TRANSLATION_SCALE = 1.0/200.0 # matches Disco
-    translate_xyz = [
-        -keys.translation_x_series[frame_idx] * TRANSLATION_SCALE, 
-        keys.translation_y_series[frame_idx] * TRANSLATION_SCALE, 
-        -keys.translation_z_series[frame_idx] * TRANSLATION_SCALE
-    ]
-    rotate_xyz = [
-        math.radians(keys.rotation_3d_x_series[frame_idx]), 
-        math.radians(keys.rotation_3d_y_series[frame_idx]), 
-        math.radians(keys.rotation_3d_z_series[frame_idx])
-    ]
-    rot_mat = p3d.euler_angles_to_matrix(torch.tensor(rotate_xyz, device=device), "XYZ").unsqueeze(0)
+    translate_xyz, rot_mat = anim_args.TR_callback(deice, prev_img_cv2, depth, anim_args, keys, frame_idx)
     result = transform_image_3d(device, prev_img_cv2, depth, rot_mat, translate_xyz, anim_args)
     torch.cuda.empty_cache()
     return result
