@@ -370,7 +370,8 @@ def render_animation(args, anim_args, animation_prompts, root):
                 # Transform the mask
                 mask_sample, _ = anim_frame_warp(args.mask_sample, args, anim_args, keys, frame_idx, depth_model, depth, device=root.device)
                 args.mask_sample = sample_from_cv2(mask_sample).half().to(root.device)
-            
+
+            """ disabled
             # apply color matching
             if anim_args.color_coherence != 'None':
                 # video color matching
@@ -385,11 +386,15 @@ def render_animation(args, anim_args, animation_prompts, root):
                     color_match_sample = prev_img.copy()
                 else:
                     prev_img = maintain_colors(prev_img, color_match_sample, anim_args.color_coherence)
+            """
 
             # apply scaling
             contrast_sample = prev_img * contrast
+
+            """ disabled
             # apply anti-blur
             contrast_sample = unsharp_mask(contrast_sample, (kernel, kernel), sigma, amount, threshold)
+            """
 
             # apply frame noising
             noised_sample = add_noise(sample_from_cv2(contrast_sample), noise)
